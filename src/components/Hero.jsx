@@ -133,7 +133,7 @@ export default function Hero() {
             {/* Bonjour line */}
             <p
               className="anim-fade-up-1 mb-3 "
-              style={{  color: "--color-text" }}
+              style={{ color: "--color-text" }}
             >
               Bonjour, je suis <span className="wave-emoji">👋</span>
             </p>
@@ -152,14 +152,14 @@ export default function Hero() {
 
             {/* Je suis + typing */}
             <div className="anim-fade-up-3 mb-8">
-                <p
-              className="anim-fade-up-1 mb-3 "
-              style={{  color: "--color-text" }}
-            >
-            je suis 
-            </p>
               <p
-              
+                className="anim-fade-up-1 mb-3 "
+                style={{ color: "--color-text" }}
+              >
+                je suis
+              </p>
+              <p
+
                 style={{
                   color: "#7BBFDE",
                   borderBottom: "2px solid #7BBFDE",
@@ -193,7 +193,12 @@ export default function Hero() {
               </button>
 
               <button
-                onClick={() => {}}
+                onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = "/cvDihiFatima.pdf";
+                  link.download = "CV_Dihi_Fatima.pdf";
+                  link.click();
+                }}
                 className="flex items-center gap-2 bg-transparent rounded-full px-7 py-3 text-[.88rem] font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-1"
                 style={{
                   color: "#fff",
