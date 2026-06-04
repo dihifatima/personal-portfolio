@@ -1,6 +1,4 @@
 // ─── EXPERIENCE ────────────────────────────────────────────────────────────────
-// logo paths: copy logoAdminpro.webp to public/assets/ (already have it)
-// EMSI logo goes to public/assets/logoEmsi.webp
 import smartflowImg from "../assets/smartflow-preview.png";
 import adminproProjectimg from "../assets/adminproProjectimg.png";
 import projetAnalyseDeDonneImg from "../assets/projetAnalyseDeDonneImg.png";
@@ -73,7 +71,7 @@ export const EXPERIENCE = [
   },
 ];
 
-// ─── EDUCATION (conservée mais plus affichée dans Experience.jsx) ─────────────
+// ─── EDUCATION ────────────────────────────────────────────────────────────────
 export const EDUCATION = [
   { date: "2025 - 2027", title: "Ingénierie Développement Digital & SI (2DSI)", org: "EMSI Marrakech" },
   { date: "2024 - 2025", title: "Licence Systèmes Informatiques Répartis (SIR)", org: "Faculté des Sciences et Techniques · Marrakech" },
@@ -82,25 +80,19 @@ export const EDUCATION = [
 ];
 
 // ─── PROJECTS ─────────────────────────────────────────────────────────────────
+// 💡 Remplace les "#" par tes vrais liens GitHub quand les repos sont publics.
+//    Pour "link", mets le lien démo ou LinkedIn si pas de déploiement.
+
 export const PROJECTS = [
-    {
+  {
     image: smartflowImg,
     cat: "Projet de Fin d'Année · IA & Agile",
     title: "Système Intelligent de Gestion de Projets",
     desc: "Application web full stack modulaire combinant un module IA (analyse de cahiers des charges, estimation coûts/délais/risques via Gemini API, résilience Resilience4J) et un module Agile complet (backlog, sprints, Kanban, RBAC) avec communication asynchrone via RabbitMQ.",
-    techs: [
-      "Spring Boot",
-      "Next.js",
-      "MySQL",
-      "Gemini API",
-      "RabbitMQ",
-      "Resilience4J",
-      "JWT",
-      "JUnit 5",
-      "SonarCloud",
-    ],
+    techs: ["Spring Boot", "Next.js", "MySQL", "Gemini API", "RabbitMQ", "Resilience4J", "JWT", "JUnit 5", "SonarCloud"],
     status: "done",
-    link: "#",
+    github: "https://github.com/dihifatima/SmartFlow",   // 🔗 à remplacer par ton lien GitHub
+    link: "#",     // 🔗 à remplacer par ta démo / vidéo Loom
   },
   {
     image: adminproProjectimg,
@@ -109,9 +101,9 @@ export const PROJECTS = [
     desc: "Site web complet pour Adminpro Advisors Solutions — interface publique, espace admin interne, gestion des utilisateurs, intégration OAuth2 et chatbot Google.",
     techs: ["Spring", "Next.js", "Tailwind CSS", "PostgreSQL", "OAuth2", "Scrum"],
     status: "done",
+    github: "#",   // 🔗 à remplacer
     link: "https://adminproadvisorssolutions.com/",
   },
-
   {
     image: projetAnalyseDeDonneImg,
     cat: "IA & Analyse de Données",
@@ -119,6 +111,7 @@ export const PROJECTS = [
     desc: "Étude de données médicales open-source (Wisconsin Breast Cancer Diagnostic – UCI) : 30 caractéristiques morphologiques analysées via des méthodes univariées, bivariées (ANOVA, Pearson, multicolinéarité) et multivariées (ACP) pour identifier les variables liées à la malignité et préparer la phase de modélisation prédictive.",
     techs: ["Python", "Pandas", "Scikit-learn", "Matplotlib", "Seaborn", "ACP", "Statistiques"],
     status: "done",
+    github: "#",   // 🔗 à remplacer
     link: "https://www.linkedin.com/posts/fatima-dihi-b3b759337_projet-danalyse-de-donn%C3%A9es-diagnostic-activity-7414834136374538240-vWA-",
   },
   {
@@ -128,6 +121,7 @@ export const PROJECTS = [
     desc: "Application Android pour le suivi de l'état de la peau avec module IA pour prédiction du type de peau via API REST et Machine Learning.",
     techs: ["Android Java", "Spring Boot", "PostgreSQL", "Retrofit", "Machine Learning"],
     status: "wip",
+    github: "#",   // 🔗 à remplacer
     link: "#",
   },
   {
@@ -137,6 +131,7 @@ export const PROJECTS = [
     desc: "Application web pour la gestion et le partage de connaissances entre membres d'une communauté IT, avec système de rôles et espace de discussion.",
     techs: ["ASP.NET", "SQL Server", "Next.js"],
     status: "done",
+    github: "https://github.com/dihifatima/projet_ITCommunity",   // 🔗 à remplacer
     link: "https://www.linkedin.com/posts/fatima-dihi-b3b759337_itcommunity-aspnet-nextjs-activity-7410441432534097920-6aHl",
   },
 ];
