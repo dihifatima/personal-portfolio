@@ -274,7 +274,7 @@ export default function Contact() {
                   boxShadow: "0 0 0 3px rgba(34,197,94,0.2)",
                 }} />
                 <span style={{ fontSize: "0.8rem", color: "#22c55e", fontWeight: "600" }}>
-                  Disponible pour un stage — Été 2025
+                  Disponible pour PFA de 2 mois à partire de 1 juillet
                 </span>
               </div>
 

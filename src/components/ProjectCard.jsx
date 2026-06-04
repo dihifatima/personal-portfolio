@@ -55,7 +55,7 @@ export default function ProjectCard({
             onError={() => setImgError(true)}
             style={{
               width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "top",
+              objectFit: "center", objectPosition: "center",
               transition: "transform 0.5s ease",
             }}
             className="project-img"
@@ -80,7 +80,7 @@ export default function ProjectCard({
           background: "linear-gradient(to top, rgba(255,255,255,0.85) 0%, transparent 50%)",
         }} />
 
-        {/* Like button */}
+        {/* Like button
         <div style={{ position: "absolute", bottom: "10px", left: "12px" }}>
           <button
             onClick={handleLike}
@@ -100,7 +100,8 @@ export default function ProjectCard({
             </svg>
             {likeCount}
           </button>
-        </div>
+        </div> */}
+        
 
         {/* Status badge */}
         <div style={{ position: "absolute", top: "12px", right: "12px" }}>
