@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import myPhoto from "../assets/photo3.png";
+import myPhoto from "../assets/photo4.png";
 
 const TYPING_TEXTS = [
   "Ingenieure en Developpement Digital et systemes d'information",

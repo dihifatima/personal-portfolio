@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import myPhoto from "../assets/photo3.png";
+import myPhoto from "../assets/photo4.png";
 import SectionTitle from "./SectionTitle";
 
 const INFO = [
