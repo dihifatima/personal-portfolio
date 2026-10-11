@@ -1,10 +1,34 @@
 // ─── EXPERIENCE ────────────────────────────────────────────────────────────────
 import smartflowImg from "../assets/smartflow-preview.png";
+import inveneoProjectImg from "../assets/inveneoProjectImg.png";
 import adminproProjectimg from "../assets/adminproProjectimg.png";
 import projetAnalyseDeDonneImg from "../assets/projetAnalyseDeDonneImg.png";
 import ITCommunityIMG from "../assets/ITCommunityIMG.png";
 
 export const EXPERIENCE = [
+  {
+    date: "Juillet 2026 – Août 2026",
+    title: "Développeuse Full Stack Mobile – Stage PFA",
+    entreprise: "Inveneo, Marrakech",
+    logo: "/assets/logoInveneo.png", // 🔗 ajoute le logo dans public/assets/
+    sujet:
+      "Conception et développement d'une application mobile de supervision DevOps centralisée, permettant le suivi en temps réel des pipelines CI/CD via des connecteurs GitHub, Jenkins et SonarQube.",
+    missions: [
+      "Intégration des connecteurs GitHub, Jenkins et SonarQube : authentification OAuth, mesures de qualité par commit, association commit → build.",
+      "Suivi en temps réel des pipelines CI/CD depuis l'application mobile.",
+      "Mise en place de notifications en temps réel (webhook et push mobile) avec Firebase Cloud Messaging.",
+      "Développement d'écrans Pipelines et Home personnalisables.",
+    ],
+    techs: [
+      "Spring Boot",
+      "JPA/Hibernate",
+      "React Native",
+      "Expo",
+      "GitHub/Jenkins/SonarQube API",
+      "Firebase Cloud Messaging",
+      "REST API",
+    ],
+  },
   {
     date: "Avril 2025 – Juin 2025",
     title: "Développeuse Full Stack Web – Stage PFE",
@@ -84,15 +108,15 @@ export const EDUCATION = [
 //    Pour "link", mets le lien démo ou LinkedIn si pas de déploiement.
 
 export const PROJECTS = [
-  {
-    image: smartflowImg,
-    cat: "Projet de Fin d'Année · IA & Agile",
-    title: "Système Intelligent de Gestion de Projets",
-    desc: "Application web full stack modulaire combinant un module IA (analyse de cahiers des charges, estimation coûts/délais/risques via Gemini API, résilience Resilience4J) et un module Agile complet (backlog, sprints, Kanban, RBAC) avec communication asynchrone via RabbitMQ.",
-    techs: ["Spring Boot", "Next.js", "MySQL", "Gemini API", "RabbitMQ", "Resilience4J", "JWT", "JUnit 5", "SonarCloud"],
+   {
+    image: inveneoProjectImg,
+    cat: "Stage PFA · DevOps & Mobile",
+    title: "Application Mobile de Supervision DevOps",
+    desc: "Application mobile de supervision DevOps centralisée pour le suivi en temps réel des pipelines CI/CD via des connecteurs GitHub, Jenkins et SonarQube (authentification OAuth, mesures de qualité par commit, association commit → build), avec notifications en temps réel (webhook et push mobile) et écrans Pipelines & Home personnalisables.",
+    techs: ["Spring Boot", "JPA/Hibernate", "React Native", "Expo", "Jenkins", "SonarQube", "Firebase Cloud Messaging", "REST API"],
     status: "done",
-    github: "https://github.com/dihifatima/SmartFlow",   // 🔗 à remplacer par ton lien GitHub
-    link: "#",     // 🔗 à remplacer par ta démo / vidéo Loom
+    github: "#",   // 🔗 à remplacer si le dépôt peut être public
+    link: "https://lnkd.in/p/ehVkuWTk",      // 🔗 démo, vidéo ou post LinkedIn
   },
   {
     image: adminproProjectimg,

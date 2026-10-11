@@ -5,7 +5,11 @@ export default function ProjectCard({
   techs = [], status = "done",
   link = "#",
   github = "#",
+  fit = "cover",          // "cover" pour une capture d'écran, "contain" pour un logo
+  privateRepo = false,    // true : affiche "Repo privé" avec un cadenas
 }) {
+  const hasGithub = github && github !== "#";
+  const hasLink   = link && link !== "#";
   const [imgError, setImgError] = useState(false);
   const [liked, setLiked]       = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -55,7 +59,8 @@ export default function ProjectCard({
             onError={() => setImgError(true)}
             style={{
               width: "100%", height: "100%",
-              objectFit: "center", objectPosition: "center",
+              objectFit: fit, objectPosition: "top center",
+              padding: fit === "contain" ? "14px" : 0, boxSizing: "border-box",
               transition: "transform 0.5s ease",
             }}
             className="project-img"
@@ -77,7 +82,8 @@ export default function ProjectCard({
         {/* Gradient overlay */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to top, rgba(255,255,255,0.85) 0%, transparent 50%)",
+          background: "linear-gradient(to top, rgba(6,15,32,0.12) 0%, transparent 35%)",
+          pointerEvents: "none",
         }} />
 
         {/* Like button
@@ -108,11 +114,12 @@ export default function ProjectCard({
           <span style={{
             display: "flex", alignItems: "center", gap: "5px",
             fontSize: "0.65rem", fontWeight: "800",
-            padding: "4px 10px", borderRadius: "8px",
+            padding: "5px 11px", borderRadius: "8px",
             letterSpacing: "0.06em",
+            boxShadow: "0 2px 8px rgba(6,15,32,0.15)",
             ...(status === "done"
-              ? { background: "rgba(34,197,94,0.12)", color: "#16a34a", border: "1px solid rgba(34,197,94,0.3)" }
-              : { background: "rgba(255,107,157,0.12)", color: "#FF6B9D", border: "1px solid rgba(255,107,157,0.3)" }
+              ? { background: "#ffffff", color: "#15803d", border: "1px solid #86efac" }
+              : { background: "#ffffff", color: "#e0457b", border: "1px solid #FFB3CF" }
             ),
           }}>
             <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
@@ -134,26 +141,32 @@ export default function ProjectCard({
       }}>
 
         <span style={{
-          fontSize: "0.62rem", fontWeight: "700",
-          color: "#7BBFDE", textTransform: "uppercase",
-          letterSpacing: "0.1em", marginBottom: "6px",
+          fontSize: "0.66rem", fontWeight: "700",
+          color: "#3a8db5", textTransform: "uppercase",
+          letterSpacing: "0.1em", marginBottom: "8px",
         }}>
           {cat}
         </span>
 
         <h3 style={{
-          fontSize: "0.92rem", fontWeight: "900",
+          fontSize: "0.95rem", fontWeight: "800",
           color: "#060F20", textTransform: "uppercase",
-          letterSpacing: "0.04em", lineHeight: "1.3",
-          marginBottom: "8px",
+          letterSpacing: "0.03em", lineHeight: "1.35",
+          marginBottom: "10px",
+          minHeight: "2.7em",
+          display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
         }}>
           {title}
         </h3>
 
-        <p style={{
-          fontSize: "0.78rem", color: "#4b6180",
-          lineHeight: "1.8", marginBottom: "14px", flex: 1,
-        }}>
+        <p
+          title={desc}
+          style={{
+            fontSize: "0.8rem", color: "#3d516b",
+            lineHeight: "1.65", marginBottom: "14px", flex: 1,
+            display: "-webkit-box", WebkitLineClamp: 4, WebkitBoxOrient: "vertical", overflow: "hidden",
+          }}
+        >
           {desc}
         </p>
 
@@ -187,9 +200,11 @@ export default function ProjectCard({
 
           {/* GitHub */}
           <a
-            href={github}
+            href={hasGithub ? github : undefined}
             target="_blank"
             rel="noopener noreferrer"
+            aria-disabled={!hasGithub}
+            title={hasGithub ? "Voir le code sur GitHub" : privateRepo ? "Dépôt privé" : "Code non public"}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: "7px",
               padding: "10px 0", borderRadius: "12px",
@@ -198,8 +213,11 @@ export default function ProjectCard({
               textDecoration: "none", letterSpacing: "0.03em",
               border: "1.5px solid #1f2937",
               transition: "background 0.2s, transform 0.2s",
+              opacity: hasGithub ? 1 : privateRepo ? 0.75 : 0.4,
+              cursor: hasGithub ? "pointer" : "not-allowed",
             }}
             onMouseEnter={(e) => {
+              if (!hasGithub) return;
               e.currentTarget.style.background = "#1f2937";
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
@@ -208,35 +226,47 @@ export default function ProjectCard({
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            {/* GitHub icon */}
+            {/* Cadenas si le dépôt est privé, sinon icône GitHub */}
+            {!hasGithub && privateRepo ? (
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0110 0v4" />
+              </svg>
+            ) : (
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
             </svg>
-            GitHub
+            )}
+            {!hasGithub && privateRepo ? "Repo privé" : "GitHub"}
           </a>
 
           {/* Live Demo */}
           <a
-            href={link}
+            href={hasLink ? link : undefined}
             target="_blank"
             rel="noopener noreferrer"
+            aria-disabled={!hasLink}
+            title={hasLink ? "Voir la démo" : "Démo non disponible"}
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: "7px",
               padding: "10px 0", borderRadius: "12px",
               fontSize: "0.75rem", fontWeight: "700",
-              background: "transparent", color: "#7BBFDE",
+              background: "transparent", color: "#2f7fa6",
               textDecoration: "none", letterSpacing: "0.03em",
               border: "1.5px solid #7BBFDE",
               transition: "background 0.2s, color 0.2s, transform 0.2s",
+              opacity: hasLink ? 1 : 0.4,
+              cursor: hasLink ? "pointer" : "not-allowed",
             }}
             onMouseEnter={(e) => {
+              if (!hasLink) return;
               e.currentTarget.style.background = "#7BBFDE";
-              e.currentTarget.style.color = "#fff";
+              e.currentTarget.style.color = "#060F20";
               e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "#7BBFDE";
+              e.currentTarget.style.color = "#2f7fa6";
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >

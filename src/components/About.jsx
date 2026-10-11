@@ -1,23 +1,26 @@
 import { useEffect, useRef } from "react";
-import myPhoto from "../assets/photo4.png";
+import myPhoto from "../assets/photo3.png";
 import SectionTitle from "./SectionTitle";
 
 const INFO = [
   { label: "Nom",   value: "Dihi Fatima" },
-  { label: "Email", value: "dihifatima@email.com" },
-  { label: "Tel",   value: "+212 6XX XXX XXX" },
-  { label: "Poste", value: "Ingenieure Dev Digital" },
+  { label: "Email", value: "dihifatima08@gmail.com" },
+  { label: "Tel",   value: "+212 6 08 69 97 17" },
+  { label: "Poste", value: "Ingénieure Full Stack Java / React" },
 ];
 
 const TECHS = [
-  { name: "React",       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
   { name: "Java",        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+  { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
+  { name: "React",       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Next.js",     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   { name: "MySQL",       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "PostgreSQL",  logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
   { name: "MongoDB",     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-  { name: "Git",         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
   { name: "Docker",      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "jakarta EE",      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/jee.svg" },
+  { name: "Jenkins",     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+  { name: "RabbitMQ",    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rabbitmq/rabbitmq-original.svg" },
+  { name: "Git",         logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
 ];
 
 export default function About() {
@@ -158,15 +161,16 @@ export default function About() {
                 lineHeight: "1.3", marginBottom: "14px",
                 letterSpacing: "-0.02em",
               }}>
-                Future Ingénieure en{" "}
-                <span style={{ color: "#7BBFDE" }}>Développement Digital et SI</span>
+                Ingénieure en développement{" "}
+                <span style={{ color: "#7BBFDE" }}>Java / Spring Boot & React</span>
               </h2>
 
               <p style={{ fontSize: "0.87rem", color: "#4b6180", lineHeight: "1.9", marginBottom: "28px" }}>
-                Étudiante en 4ᵉ année à l'EMSI Marrakech, passionnée par le
-                développement logiciel et les systèmes d'information. Sérieuse,
-                motivée et dotée d'un bon esprit d'analyse. Je recherche un stage
-                PFA de 2 mois (été) pour mettre en pratique mes compétences.
+                Élève ingénieure en 5ᵉ année en Développement Digital et Systèmes
+                d'Information à l'EMSI Marrakech, passionnée par le développement
+                full stack Java/Spring Boot et React/Next.js, ainsi que par les
+                pratiques DevOps (CI/CD, Jenkins, SonarQube). Je recherche un stage
+                PFE de 6 mois pour mettre mes compétences au service de vos projets.
               </p>
 
              
@@ -238,10 +242,10 @@ export default function About() {
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <div className="pulse-green" style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#22c55e", flexShrink: 0 }} />
-                  <span style={{ fontSize: "0.84rem", color: "#060F20", fontWeight: "600" }}>Stage PFA — Été 2026</span>
+                  <span style={{ fontSize: "0.84rem", color: "#060F20", fontWeight: "600" }}>Stage PFE — Février 2027</span>
                 </div>
                 <div style={{ fontSize: "0.78rem", color: "#7BBFDE", marginTop: "6px" }}>
-                  Durée : 2 mois 
+                  Durée : 6 mois
                 </div>
               </div>
             </div>
