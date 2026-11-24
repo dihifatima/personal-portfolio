@@ -1,30 +1,37 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import SectionTitle from "./SectionTitle";
 import { PROJECTS } from "../data/Data";
 
-const FILTERS = ["Tous", "Projet de Fin d'Études", "Application Mobile & IA", "Application Web Collaborative", "IA & Data Science"];
-const FILTER_LABELS = {
-  "Tous": "Tous",
-  "Projet de Fin d'Études": "PFE",
-  "Application Mobile & IA": "Mobile & IA",
-  "Application Web Collaborative": "Web",
-  "IA & Data Science": "IA",
-};
+const FILTERS = [
+  { label: "Tous", value: "Tous" },
+  { label: "Stage", value: "stage" },
+  { label: "Mobile & IA", value: "mobile" },
+  { label: "Web", value: "web" },
+  { label: "Data Science", value: "data" },
+];
+
+function matchFilter(project, filter) {
+  if (filter === "Tous") return true;
+  const cat = project.cat.toLowerCase();
+  if (filter === "stage") return cat.includes("stage") || cat.includes("fin d'études");
+  if (filter === "mobile") return cat.includes("mobile");
+  if (filter === "web") return cat.includes("web") || cat.includes("collaborative");
+  if (filter === "data") return cat.includes("ia") || cat.includes("données");
+  return true;
+}
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("Tous");
 
-  const filtered =
-    activeFilter === "Tous"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.cat === activeFilter);
+  const filtered = PROJECTS.filter((p) => matchFilter(p, activeFilter));
 
   return (
     <>
       <style>{`
-        .filter-btn {
-          padding: 7px 18px;
+        .filter-pill {
+          padding: 7px 20px;
           border-radius: 999px;
           font-size: 0.78rem;
           font-weight: 700;
@@ -33,10 +40,10 @@ export default function Projects() {
           background: #fff;
           color: #4b6180;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
         }
-        .filter-btn:hover { border-color: #7BBFDE; color: #7BBFDE; }
-        .filter-btn.active {
+        .filter-pill:hover { border-color: #7BBFDE; color: #7BBFDE; }
+        .filter-pill.active {
           background: #7BBFDE;
           color: #fff;
           border-color: #7BBFDE;
@@ -44,33 +51,27 @@ export default function Projects() {
         }
       `}</style>
 
-      <section
-        id="projects"
-        style={{ background: "#f4f6f9", padding: "10px 0 96px" }}
-      >
+      <section id="projects" style={{ background: "#f4f6f9", padding: "100px 0 96px" }}>
         <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 5%" }}>
 
           <SectionTitle label="PROJETS" />
 
           {/* Filters */}
-          <div style={{
-            display: "flex", justifyContent: "center",
-            flexWrap: "wrap", gap: "8px", marginBottom: "40px",
-          }}>
+          <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "8px", marginBottom: "48px" }}>
             {FILTERS.map((f) => (
               <button
-                key={f}
-                onClick={() => setActiveFilter(f)}
-                className={`filter-btn ${activeFilter === f ? "active" : ""}`}
+                key={f.value}
+                onClick={() => setActiveFilter(f.value)}
+                className={`filter-pill ${activeFilter === f.value ? "active" : ""}`}
               >
-                {FILTER_LABELS[f]}
+                {f.label}
               </button>
             ))}
           </div>
 
           {/* Counter */}
-          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "20px" }}>
-            <span style={{ fontSize: "0.78rem", color: "#7BBFDE", fontWeight: "600" }}>
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "24px" }}>
+            <span style={{ fontSize: "0.78rem", color: "#7BBFDE", fontWeight: 600 }}>
               {filtered.length} projet{filtered.length > 1 ? "s" : ""}
             </span>
           </div>
@@ -78,22 +79,27 @@ export default function Projects() {
           {/* Grid */}
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))",
             gap: "24px",
           }}>
-            {filtered.map((project, i) => (
-              <ProjectCard key={i} {...project} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, i) => (
+                <ProjectCard key={project.slug || project.title} {...project} index={i} />
+              ))}
+            </AnimatePresence>
           </div>
 
           {filtered.length === 0 && (
-            <div style={{ textAlign: "center", padding: "80px 0" }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              style={{ textAlign: "center", padding: "80px 0" }}
+            >
               <p style={{ fontSize: "0.88rem", color: "#7BBFDE" }}>
                 Aucun projet dans cette catégorie.
               </p>
-            </div>
+            </motion.div>
           )}
-
         </div>
       </section>
     </>

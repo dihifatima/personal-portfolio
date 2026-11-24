@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import SectionTitle from "./SectionTitle";
 
 const EMAIL    = "dihifatima08@gmail.com";
@@ -13,7 +14,7 @@ const CONTACT_INFO = [
       </svg>
     ),
     label: "Adresse",
-    value: "Marrakech, Maroc ",
+    value: "Marrakech, Maroc",
   },
   {
     icon: (
@@ -22,7 +23,7 @@ const CONTACT_INFO = [
       </svg>
     ),
     label: "Téléphone",
-    value: PHONE,
+    value: "+212 6 09 98 46 65",
     href: `tel:${PHONE}`,
   },
   {
@@ -34,8 +35,7 @@ const CONTACT_INFO = [
     label: "Email",
     value: EMAIL,
     href: `mailto:${EMAIL}`,
-  }
- 
+  },
 ];
 
 export default function Contact() {
@@ -66,71 +66,54 @@ export default function Contact() {
           font-size: 0.85rem;
           color: #DDEEFF;
           outline: none;
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
           box-sizing: border-box;
           font-family: inherit;
         }
-        .c-input::placeholder { color: rgba(221,238,255,0.28); }
+        .c-input::placeholder { color: rgba(221,238,255,0.25); }
         .c-input:focus {
           border-color: #7BBFDE;
-          background: rgba(123,191,222,0.12);
+          background: rgba(123,191,222,0.1);
+          box-shadow: 0 0 0 3px rgba(123,191,222,0.1);
         }
-
         .submit-btn {
-          background: #FF6B9D;
-          color: #fff;
-          font-size: 0.8rem;
-          font-weight: 800;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          padding: 13px 40px;
-          border: none;
-          border-radius: 999px;
+          background: #FF6B9D; color: #fff;
+          font-size: 0.82rem; font-weight: 800;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          padding: 13px 40px; border: none; border-radius: 999px;
           cursor: pointer;
-          transition: background 0.2s, transform 0.2s, color 0.2s;
+          box-shadow: 0 6px 20px rgba(255,107,157,0.3);
+          transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
         }
-        .submit-btn:hover  { background: #FFB3CF; color: #060F20; transform: translateY(-2px); }
-        .submit-btn.sent   { background: #22c55e; }
-        .submit-btn.error  { background: #ef4444; }
-
-        .info-card-contact {
-          display: flex;
-          align-items: center;
-          gap: 16px;
+        .submit-btn:hover { background: #FFB3CF; color: #060F20; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,157,0.4); }
+        .submit-btn.sent   { background: #22c55e; box-shadow: 0 6px 20px rgba(34,197,94,0.3); }
+        .submit-btn.error  { background: #ef4444; box-shadow: 0 6px 20px rgba(239,68,68,0.3); }
+        .contact-info-card {
+          display: flex; align-items: center; gap: 16px;
           padding: 16px 20px;
           background: rgba(123,191,222,0.05);
           border: 1px solid rgba(123,191,222,0.12);
           border-radius: 12px;
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.2s, background 0.2s, transform 0.2s;
           text-decoration: none;
         }
-        .info-card-contact:hover {
+        .contact-info-card:hover {
           border-color: rgba(123,191,222,0.35);
           background: rgba(123,191,222,0.1);
+          transform: translateX(4px);
         }
-
-        .whatsapp-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          background: rgba(37,211,102,0.12);
+        .wa-btn {
+          display: inline-flex; align-items: center; gap: 10px;
+          background: rgba(37,211,102,0.1);
           border: 1.5px solid rgba(37,211,102,0.3);
-          color: #25d366;
-          font-size: 0.83rem;
-          font-weight: 700;
-          padding: 12px 28px;
-          border-radius: 999px;
+          color: #25d366; font-size: 0.83rem; font-weight: 700;
+          padding: 12px 28px; border-radius: 999px;
           text-decoration: none;
           transition: background 0.2s, transform 0.2s;
-          cursor: pointer;
         }
-        .whatsapp-btn:hover {
-          background: rgba(37,211,102,0.22);
-          transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-          .contact-2col { grid-template-columns: 1fr !important; }
+        .wa-btn:hover { background: rgba(37,211,102,0.2); transform: translateY(-2px); }
+        @media(max-width:768px){
+          .contact-grid { grid-template-columns: 1fr !important; }
           .form-2col    { grid-template-columns: 1fr !important; }
         }
       `}</style>
@@ -141,60 +124,34 @@ export default function Contact() {
           <SectionTitle label="CONTACT" />
 
           <div
-            className="contact-2col"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.1fr 0.9fr",
-              gap: "64px",
-              alignItems: "start",
-            }}
+            className="contact-grid"
+            style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: "64px", alignItems: "start" }}
           >
 
             {/* ── LEFT — Formulaire ── */}
-            <div>
-              {/* Intro */}
-              <p style={{
-                fontSize: "0.87rem",
-                color: "rgba(221,238,255,0.5)",
-                lineHeight: "1.8",
-                marginBottom: "28px",
-              }}>
-                Une question, une opportunité de stage ou juste envie d'échanger ?
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p style={{ fontSize: "0.87rem", color: "rgba(221,238,255,0.5)", lineHeight: 1.8, marginBottom: "28px" }}>
+                Une opportunité de stage, une question ou juste envie d'échanger ?
                 Remplissez le formulaire et je vous répondrai rapidement.
               </p>
 
-              <div className="form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "14px" }}>
-                <input
-                  className="c-input"
-                  type="text"
-                  placeholder="Prénom *"
-                  value={form.prenom}
-                  onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                />
-                <input
-                  className="c-input"
-                  type="text"
-                  placeholder="Nom"
-                  value={form.nom}
-                  onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                />
+              <div className="form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+                <input className="c-input" type="text" placeholder="Prénom *"
+                  value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} />
+                <input className="c-input" type="text" placeholder="Nom"
+                  value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} />
               </div>
 
-              <div className="form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "14px" }}>
-                <input
-                  className="c-input"
-                  type="email"
-                  placeholder="Email *"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                />
-                <input
-                  className="c-input"
-                  type="tel"
-                  placeholder="Téléphone"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                />
+              <div className="form-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
+                <input className="c-input" type="email" placeholder="Email *"
+                  value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                <input className="c-input" type="tel" placeholder="Téléphone"
+                  value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
               </div>
 
               <textarea
@@ -211,74 +168,87 @@ export default function Contact() {
                   onClick={handleSend}
                   className={`submit-btn ${sent ? "sent" : ""} ${error ? "error" : ""}`}
                 >
-                  {sent  ? "✓ Envoyé !" :
+                  {sent  ? "Envoyé !" :
                    error ? "Champs requis" :
                    "Envoyer"}
                 </button>
 
-                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="whatsapp-btn">
+                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="wa-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
                   WhatsApp
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            {/* ── RIGHT — Coordonnées ── */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "14px", paddingTop: "60px" }}>
-
-              {CONTACT_INFO.map(({ icon, label, value, href }) => {
+            {/* ── RIGHT — Infos ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              style={{ display: "flex", flexDirection: "column", gap: "12px", paddingTop: "60px" }}
+            >
+              {CONTACT_INFO.map(({ icon, label, value, href }, i) => {
                 const content = (
                   <>
                     <div style={{ flexShrink: 0 }}>{icon}</div>
                     <div>
-                      <div style={{
-                        fontSize: "0.67rem",
-                        fontWeight: "700",
-                        color: "#7BBFDE",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.08em",
-                        marginBottom: "2px",
-                      }}>
+                      <div style={{ fontSize: "0.67rem", fontWeight: 700, color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "2px" }}>
                         {label}
                       </div>
-                      <div style={{ fontSize: "0.83rem", color: "rgba(221,238,255,0.7)", fontWeight: "500" }}>
+                      <div style={{ fontSize: "0.83rem", color: "rgba(221,238,255,0.65)", fontWeight: 500 }}>
                         {value}
                       </div>
                     </div>
                   </>
                 );
-
                 return href ? (
-                  <a key={label} href={href} className="info-card-contact">{content}</a>
+                  <a key={label} href={href} className="contact-info-card">{content}</a>
                 ) : (
-                  <div key={label} className="info-card-contact">{content}</div>
+                  <div key={label} className="contact-info-card">{content}</div>
                 );
               })}
 
               {/* Dispo badge */}
               <div style={{
-                marginTop: "8px",
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "12px 16px",
-                background: "rgba(34,197,94,0.08)",
+                marginTop: "6px",
+                display: "flex", alignItems: "center", gap: "10px",
+                padding: "14px 18px",
+                background: "rgba(34,197,94,0.07)",
                 border: "1px solid rgba(34,197,94,0.2)",
                 borderRadius: "10px",
               }}>
-                <div style={{
-                  width: "8px", height: "8px", borderRadius: "50%",
-                  background: "#22c55e",
-                  boxShadow: "0 0 0 3px rgba(34,197,94,0.2)",
-                }} />
-                <span style={{ fontSize: "0.8rem", color: "#22c55e", fontWeight: "600" }}>
-                  Disponible pour PFA de 2 mois à partire de 1 juillet
+                <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 0 3px rgba(34,197,94,0.2)", flexShrink: 0 }} />
+                <span style={{ fontSize: "0.82rem", color: "#22c55e", fontWeight: 600 }}>
+                  Disponible pour stage PFE · Fév. 2027 (6 mois)
                 </span>
               </div>
 
-            </div>
+              {/* LinkedIn CTA */}
+              <a
+                href="https://www.linkedin.com/in/fatima-dihi-b3b759337/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
+                  padding: "12px 20px", borderRadius: "10px",
+                  background: "rgba(10,102,194,0.1)", border: "1px solid rgba(10,102,194,0.3)",
+                  color: "#7BBFDE", fontSize: "0.82rem", fontWeight: 700,
+                  textDecoration: "none",
+                  transition: "background 0.2s, transform 0.2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(10,102,194,0.18)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(10,102,194,0.1)"; e.currentTarget.style.transform = "translateY(0)"; }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                Voir mon profil LinkedIn
+              </a>
+            </motion.div>
+
           </div>
         </div>
       </section>

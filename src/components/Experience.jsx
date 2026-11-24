@@ -1,65 +1,39 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { EXPERIENCE } from "../data/Data.js";
 import SectionTitle from "./SectionTitle";
 
-// Tech icon map using devicons CDN
 const TECH_ICONS = {
   "Spring Framework": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
   "Spring Boot": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
-  "spring framework": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
   "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-  "Next.js/React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
   "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
   "TailwindCSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
   "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   "MySQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-  "MySQ": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
   "Git/GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
   "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-  "Scrum": null,
-  "Agile/Scrum": null,
-  "Agile / Scrum": null,
-  "JWT": null,
-  "OAuth2 Google": null,
-  "REST API": null,
-  "API Google (OAuth2, chatbot)": null,
-  "JPA/Hibernate": null,
-  "Jakarta EE": null,
-  "LLM + Prompt Engineering Web Scraping": null,
-  "Web Scraping": null,
   "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  "Python/AI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   "Java": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
   "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-};
-
-const COMPANY_LOGOS = {
-  "Adminpro Advisors Solutions": "/assets/logoAdminpro.webp",
-  "EMSI Marrakech": "/assets/logoEmsi.webp",
+  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
 };
 
 function TechBadge({ tech }) {
   const icon = TECH_ICONS[tech];
   return (
     <span style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "5px",
+      display: "inline-flex", alignItems: "center", gap: "5px",
       background: "rgba(123,191,222,0.08)",
       border: "1px solid rgba(123,191,222,0.2)",
-      borderRadius: "6px",
-      padding: "3px 9px",
-      fontSize: "0.7rem",
-      color: "#a0c4d8",
-      fontWeight: "500",
+      borderRadius: "6px", padding: "3px 9px",
+      fontSize: "0.7rem", color: "#a0c4d8", fontWeight: 500,
       whiteSpace: "nowrap",
     }}>
       {icon && (
-        <img
-          src={icon}
-          alt=""
-          style={{ width: "13px", height: "13px", objectFit: "contain", filter: "brightness(1.1)" }}
+        <img src={icon} alt="" style={{ width: "13px", height: "13px", objectFit: "contain", filter: "brightness(1.1)" }}
           onError={(e) => { e.target.style.display = "none"; }}
         />
       )}
@@ -69,109 +43,75 @@ function TechBadge({ tech }) {
 }
 
 function ExperienceCard({ item, index, isDetailed }) {
-  const cardRef = useRef(null);
-  const logo = item.logo || (item.entreprise ? COMPANY_LOGOS[Object.keys(COMPANY_LOGOS).find(k => item.entreprise.includes(k))] : null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) entry.target.classList.add("exp-card-in");
-      },
-      { threshold: 0.1 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div
-      ref={cardRef}
-      className="exp-card"
-      style={{ transitionDelay: `${index * 0.13}s` }}
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
+      style={{ position: "relative", paddingLeft: "32px", marginBottom: "28px" }}
     >
       {/* Timeline dot */}
-      <div className="tl-dot" />
+      <div style={{
+        position: "absolute",
+        left: "-5px", top: "16px",
+        width: "12px", height: "12px",
+        borderRadius: "50%",
+        background: "linear-gradient(135deg, #7BBFDE, #FF6B9D)",
+        border: "2px solid rgba(123,191,222,0.25)",
+        zIndex: 1,
+        boxShadow: "0 0 10px rgba(123,191,222,0.4)",
+      }} />
 
-      {/* Card body */}
-      <div className="exp-card-inner">
-        {/* Header row */}
+      {/* Card */}
+      <div
+        style={{
+          background: "rgba(123,191,222,0.04)",
+          border: "1px solid rgba(123,191,222,0.12)",
+          borderRadius: "14px",
+          padding: "20px 22px 18px",
+          transition: "border-color 0.3s, background 0.3s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(123,191,222,0.08)";
+          e.currentTarget.style.borderColor = "rgba(123,191,222,0.28)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(123,191,222,0.04)";
+          e.currentTarget.style.borderColor = "rgba(123,191,222,0.12)";
+        }}
+      >
+        {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", marginBottom: "12px" }}>
           <div style={{ flex: 1 }}>
-            {/* Date badge */}
             <span style={{
               display: "inline-block",
-              fontSize: "0.68rem",
-              fontWeight: "700",
-              color: "#FF6B9D",
+              fontSize: "0.68rem", fontWeight: 700, color: "#FF6B9D",
               letterSpacing: "0.07em",
               background: "rgba(255,107,157,0.08)",
               border: "1px solid rgba(255,107,157,0.2)",
-              borderRadius: "5px",
-              padding: "2px 8px",
+              borderRadius: "5px", padding: "2px 8px",
               marginBottom: "8px",
             }}>
               {item.date}
             </span>
-
-            {/* Title */}
-            <div style={{
-              fontSize: "0.95rem",
-              fontWeight: "700",
-              color: "#DDEEFF",
-              lineHeight: "1.35",
-              marginBottom: "4px",
-            }}>
+            <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#DDEEFF", lineHeight: "1.35", marginBottom: "4px" }}>
               {item.title}
             </div>
-
-            {/* Company */}
             {item.entreprise && (
-              <div style={{
-                fontSize: "0.78rem",
-                color: "#7BBFDE",
-                fontWeight: "500",
-              }}>
+              <div style={{ fontSize: "0.78rem", color: "#7BBFDE", fontWeight: 500 }}>
                 {item.entreprise}
               </div>
             )}
-            {item.org && !item.entreprise && (
-              <div style={{ fontSize: "0.78rem", color: "#7BBFDE", fontWeight: "500" }}>
-                {item.org}
-              </div>
-            )}
           </div>
-
-          {/* Company logo */}
-          {logo && (
-            <div style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "10px",
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(123,191,222,0.15)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              overflow: "hidden",
-              padding: "4px",
-            }}>
-              <img
-                src={logo}
-                alt="company logo"
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                onError={(e) => { e.target.parentElement.style.display = "none"; }}
-              />
-            </div>
-          )}
         </div>
 
-        {/* Detailed content */}
+        {/* Detailed */}
         {isDetailed && (
           <div style={{ marginBottom: "12px" }}>
             {item.sujet && (
-              <div style={{ marginBottom: "8px" }}>
-                <span style={{ fontSize: "0.72rem", fontWeight: "700", color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              <div style={{ marginBottom: "10px" }}>
+                <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                   Contexte
                 </span>
                 <p style={{ fontSize: "0.78rem", color: "#a0b4cc", lineHeight: "1.7", margin: "4px 0 0" }}>
@@ -179,35 +119,17 @@ function ExperienceCard({ item, index, isDetailed }) {
                 </p>
               </div>
             )}
-
             {item.missions && item.missions.length > 0 && (
-              <div style={{ marginBottom: "8px" }}>
-                <span style={{ fontSize: "0.72rem", fontWeight: "700", color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              <div style={{ marginBottom: "10px" }}>
+                <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                   Missions
                 </span>
-                <ul style={{ margin: "6px 0 0", paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                <ul style={{ margin: "6px 0 0", paddingLeft: "16px", display: "flex", flexDirection: "column", gap: "5px" }}>
                   {item.missions.map((m, i) => (
                     <li key={i} style={{ fontSize: "0.76rem", color: "#a0b4cc", lineHeight: "1.65" }}>{m}</li>
                   ))}
                 </ul>
               </div>
-            )}
-
-            {item.objectif && !item.missions && (
-              <div style={{ marginBottom: "8px" }}>
-                <span style={{ fontSize: "0.72rem", fontWeight: "700", color: "#7BBFDE", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                  Objectif
-                </span>
-                <p style={{ fontSize: "0.78rem", color: "#a0b4cc", lineHeight: "1.7", margin: "4px 0 0" }}>
-                  {item.objectif}
-                </p>
-              </div>
-            )}
-
-            {item.desc && !item.sujet && (
-              <p style={{ fontSize: "0.78rem", color: "#a0b4cc", lineHeight: "1.7", margin: "0 0 8px" }}>
-                {item.desc}
-              </p>
             )}
           </div>
         )}
@@ -220,154 +142,87 @@ function ExperienceCard({ item, index, isDetailed }) {
             ))}
           </div>
         )}
+
+        {/* Link */}
+        {item.link && (
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: "5px",
+              marginTop: "12px",
+              fontSize: "0.75rem", fontWeight: 600, color: "#7BBFDE",
+              textDecoration: "none",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FF6B9D"}
+            onMouseLeave={(e) => e.currentTarget.style.color = "#7BBFDE"}
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Voir le projet en ligne
+          </a>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Experience() {
   const [isDetailed, setIsDetailed] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) entry.target.classList.add("section-in");
-      },
-      { threshold: 0.05 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <>
       <style>{`
-        .exp-card {
-          opacity: 0;
-          transform: translateY(24px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
-          position: relative;
-          padding-left: 28px;
-          margin-bottom: 24px;
-        }
-        .exp-card.exp-card-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .tl-wrap {
-          position: relative;
-          padding-left: 4px;
-        }
-        .tl-wrap::before {
-          content: '';
-          position: absolute;
-          left: 4px;
-          top: 0; bottom: 0;
-          width: 1.5px;
-          background: linear-gradient(180deg, #7BBFDE 0%, #FF6B9D 60%, transparent 100%);
-        }
-        .tl-dot {
-          position: absolute;
-          left: -3px;
-          top: 14px;
-          width: 11px;
-          height: 11px;
-          border-radius: 50%;
-          background: #7BBFDE;
-          border: 2px solid rgba(123,191,222,0.25);
-          z-index: 1;
-          box-shadow: 0 0 8px rgba(123,191,222,0.35);
-        }
-        .exp-card-inner {
-          background: rgba(123,191,222,0.04);
-          border: 1px solid rgba(123,191,222,0.12);
-          border-radius: 14px;
-          padding: 18px 20px 16px;
-          transition: border-color 0.3s ease, background 0.3s ease;
-        }
-        .exp-card:hover .exp-card-inner {
-          background: rgba(123,191,222,0.07);
-          border-color: rgba(123,191,222,0.25);
-        }
-        .toggle-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
+        .toggle-btn-exp {
+          display: flex; align-items: center; gap: 7px;
           background: rgba(123,191,222,0.07);
           border: 1px solid rgba(123,191,222,0.2);
           border-radius: 8px;
           padding: 7px 16px;
-          font-size: 0.78rem;
-          font-weight: 600;
-          color: #7BBFDE;
-          cursor: pointer;
+          font-size: 0.78rem; font-weight: 600;
+          color: #7BBFDE; cursor: pointer;
           transition: background 0.2s, border-color 0.2s;
           font-family: 'Courier New', monospace;
           letter-spacing: 0.04em;
         }
-        .toggle-btn:hover {
-          background: rgba(123,191,222,0.14);
-          border-color: rgba(123,191,222,0.35);
-        }
-        .toggle-btn.active {
-          background: rgba(123,191,222,0.14);
-          border-color: #7BBFDE;
-          color: #DDEEFF;
-        }
-        @media (max-width: 768px) {
-          .exp-card-inner { padding: 14px 14px 12px; }
-        }
+        .toggle-btn-exp:hover { background: rgba(123,191,222,0.14); border-color: rgba(123,191,222,0.35); }
+        .toggle-btn-exp.active { background: rgba(123,191,222,0.14); border-color: #7BBFDE; color: #DDEEFF; }
       `}</style>
 
-      <section
-        id="experience"
-        ref={sectionRef}
-        style={{ background: "#060F20", padding: "100px 0 96px" }}
-      >
+      <section id="experience" style={{ background: "#060F20", padding: "100px 0 96px" }}>
         <div style={{ maxWidth: "820px", margin: "0 auto", padding: "0 6%" }}>
-          <SectionTitle label="EXPERIENCE" />
 
-          {/* Toggle compact / détaillé */}
+          <SectionTitle label="EXPÉRIENCE" />
+
+          {/* Toggle */}
           <div style={{ display: "flex", gap: "10px", marginBottom: "40px" }}>
-            <button
-              className={`toggle-btn${!isDetailed ? " active" : ""}`}
-              onClick={() => setIsDetailed(false)}
-            >
-              <span>⊟</span> Compact
+            <button className={`toggle-btn-exp ${!isDetailed ? "active" : ""}`} onClick={() => setIsDetailed(false)}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Compact
             </button>
-            <button
-              className={`toggle-btn${isDetailed ? " active" : ""}`}
-              onClick={() => setIsDetailed(true)}
-            >
-              <span>⊞</span> Détaillé
+            <button className={`toggle-btn-exp ${isDetailed ? "active" : ""}`} onClick={() => setIsDetailed(true)}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Détaillé
             </button>
-          </div>
-
-          {/* Section header */}
-          <div style={{
-            fontSize: "0.88rem",
-            fontWeight: "700",
-            color: "#DDEEFF",
-            padding: "0 0 10px",
-            borderBottom: "2px solid #7BBFDE",
-            display: "inline-block",
-            marginBottom: "32px",
-            fontFamily: "'Courier New', monospace",
-            letterSpacing: "0.04em",
-          }}>
-            // Expérience professionnelle
           </div>
 
           {/* Timeline */}
-          <div className="tl-wrap">
+          <div style={{ position: "relative", paddingLeft: "8px" }}>
+            {/* Timeline line */}
+            <div style={{
+              position: "absolute",
+              left: "0px", top: 0, bottom: 0,
+              width: "2px",
+              background: "linear-gradient(180deg, #7BBFDE 0%, #FF6B9D 60%, transparent 100%)",
+              borderRadius: "2px",
+            }} />
+
             {EXPERIENCE.map((item, i) => (
-              <ExperienceCard
-                key={i}
-                item={item}
-                index={i}
-                isDetailed={isDetailed}
-              />
+              <ExperienceCard key={i} item={item} index={i} isDetailed={isDetailed} />
             ))}
           </div>
         </div>
